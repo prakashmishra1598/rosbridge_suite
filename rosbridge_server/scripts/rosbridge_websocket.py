@@ -64,7 +64,7 @@ def shutdown_hook():
 
 if __name__ == "__main__":
     rospy.init_node("rosbridge_websocket")
-
+    rospy.loginfo("Init node...")
     ##################################################
     # Parameter handling                             #
     ##################################################
