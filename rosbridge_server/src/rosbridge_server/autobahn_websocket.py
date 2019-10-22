@@ -130,6 +130,7 @@ class RosbridgeWebSocket(WebSocketServerProtocol):
         }
         try:
             self.protocol = RosbridgeProtocol(cls.client_id_seed, parameters=parameters)
+            rospy.loginfo("Self.protocol parameters = ", self.protocol.parameters)
             producer = OutgoingValve(self)
             producer.resumeProducing()
             self.transport.registerProducer(producer, True)
@@ -143,7 +144,8 @@ class RosbridgeWebSocket(WebSocketServerProtocol):
                 cls.client_manager.add_client(self.client_id, self.peer)
 
         except Exception as exc:
-            rospy.logerr("Unable to accept incoming connection.  Reason: %s", str(exc))
+            rospy.loginfo("Unable to accept incoming connection.  Reason: %s", str(exc))
+            rospy.loginfo("Self.protocol parameters = ", self.protocol.parameters)
         rospy.loginfo("Client connected.  %d clients total.", cls.clients_connected)
         if cls.authenticate:
             rospy.loginfo("Awaiting proper authentication...")
